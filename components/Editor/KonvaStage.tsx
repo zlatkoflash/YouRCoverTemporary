@@ -300,6 +300,7 @@ export default function KonvaStage({
             )}
 
             {
+              user !== null && user.role === "administrator" &&
               templateDB !== null && templateDB.catalog_image !== "" &&
               <BackgroundCover
                 url={templateDB.catalog_image}
