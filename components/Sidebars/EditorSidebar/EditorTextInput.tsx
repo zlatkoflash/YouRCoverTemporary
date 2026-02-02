@@ -31,12 +31,14 @@ export default function EditorTextInput() {
   }
 
   const handleFocus = () => {
+    console.log("Don't forget you have duplicated events for mobile too");
     // Save the starting text value
     originalTextRef.current = selectedKonvaItemText.text || "";
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // Update the canvas in real-time (NO history here)
+    console.log("Don't forget you have duplicated events for mobile too");
     dispatch(
       EditorActions.updateItem({
         id: selectedKonvaItem.id,
@@ -46,6 +48,7 @@ export default function EditorTextInput() {
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    console.log("Don't forget you have duplicated events for mobile too");
     const finalValue = e.target.value;
     console.log("Blur event");
 
@@ -71,7 +74,9 @@ export default function EditorTextInput() {
       <div className="section-title">Text Content</div>
 
       <div className="form-group">
-        <label className="form-label" htmlFor="headlineInput">Headline</label>
+        {
+          // <label className="form-label" htmlFor="headlineInput">Headline</label>
+        }
         <textarea
           key={selectedKonvaItem.id} // Forces React to treat different items separately
           className="form-input min-h-[100px] resize-none"

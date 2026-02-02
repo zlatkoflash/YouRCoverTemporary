@@ -15,13 +15,15 @@ import ZKonvaTextComponent from './Elements/ZKonvaTextComponent';
 import ZKonvaImageComponent from './Elements/ZKonvaImageComponent';
 
 // Sub-component to handle "Background Cover" logic
-const BackgroundCover = ({ url, targetWidth, targetHeight, opacity = 1, onMouseDown, fillType = "cover" }: {
+const BackgroundCover = ({ url, targetWidth, targetHeight, opacity = 1, onMouseDown, fillType = "cover", onClick, onTap }: {
   url: string;
   targetWidth: number;
   targetHeight: number;
   opacity?: number;
   onMouseDown?: (e: any) => void;
   fillType?: "cover" | "contain" | "stretch" | "tile";
+  onClick?: (e: any) => void;
+  onTap?: (e: any) => void;
 }) => {
   const [img, setImg] = useState<HTMLImageElement | null>(null);
 
@@ -78,6 +80,8 @@ const BackgroundCover = ({ url, targetWidth, targetHeight, opacity = 1, onMouseD
   return (
     <Group clipX={0} clipY={0} clipWidth={targetWidth} clipHeight={targetHeight}>
       <KonvaImage
+        onClick={onClick}
+        onTap={onTap}
         image={img}
         x={x}
         y={y}
@@ -217,6 +221,28 @@ export default function KonvaStage({
 
   ]); // Only re-run if the SELECTED ID changes
 
+  const onClickOverStage = (e: any) => {
+    // e.target is the specific shape clicked
+    // e.currentTarget is the Stage itself
+    const clickedOnEmpty = e.target === e.target.getStage();
+
+
+
+    if (clickedOnEmpty) {
+      console.log("Clicked on empty space - Deselecting");
+      dispatch(EditorActions.setselectedKonvaItem(null));
+
+      dispatch(EditorActions.setMobileTextEditorPanelVisible(false));
+      dispatch(EditorActions.setMobileTextColorPickerVisible(false));
+      dispatch(EditorActions.setMobileTextFontSizePickerVisible(false));
+
+    }
+  }
+  const onClickOverCover = (e: any) => {
+    console.log("Cover onClick");
+    dispatch(EditorActions.setselectedKonvaItem(null));
+  }
+
 
   if (konvaData === null) {
     return null;
@@ -229,6 +255,9 @@ export default function KonvaStage({
 
         width={dimensions.width}
         height={dimensions.height}
+
+        onClick={onClickOverStage}
+        onTap={onClickOverStage}
 
         ref={stageRef}
         // onWheel={handleWheel}
@@ -291,6 +320,8 @@ export default function KonvaStage({
                 url={coverURL}
                 targetWidth={POSTER_W}
                 targetHeight={POSTER_H}
+                onClick={onClickOverCover}
+                onTap={onClickOverCover}
                 onMouseDown={(e: any) => {
                   console.log("Cover onMouseDown");
                   // setSelectedId(null);
@@ -306,6 +337,8 @@ export default function KonvaStage({
                 url={templateDB.catalog_image}
                 targetWidth={POSTER_W}
                 targetHeight={POSTER_H}
+                onClick={onClickOverCover}
+                onTap={onClickOverCover}
                 opacity={0.5}
                 fillType="stretch"
                 onMouseDown={(e: any) => {
