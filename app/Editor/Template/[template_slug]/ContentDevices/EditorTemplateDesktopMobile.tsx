@@ -4,7 +4,7 @@ import EditorCanvasFinal from "@/components/Editor/EditorCanvasFinal";
 import HeaderWrap from "@/components/headers/HeadeWrap";
 import MobileHeader from "@/components/headers/MobileHeader";
 import EditorSidebar from "@/components/Sidebars/EditorSidebar/Index";
-import { allEditorFontVariables } from "@/lib/fonts";
+// import { allEditorFontVariables } from "@/lib/fonts";
 import { useDevice } from "@/Providers/DeviceProvider";
 import MobileButtonUploadPhoto from "./MobileButtonUploadPhoto";
 import MobileFooterEditor from "@/components/footers/MobileFooterEditor";
@@ -37,9 +37,7 @@ export default function EditorTemplateDesktopMobile() {
     <>
       <HeaderWrap />
 
-      <div className={`main-container ${allEditorFontVariables
-
-        }`}>
+      <div className={`main-container `}>
         <div className="screen active" id="screen2">
           <div className="editor-layout">
             <EditorCanvasFinal

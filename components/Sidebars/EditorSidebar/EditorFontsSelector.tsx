@@ -7,7 +7,7 @@ import {
   EditorActions
 } from "@/lib/features/editor/editorSlice";
 import { RootState } from "@/lib/store";
-import { customFonts } from "@/lib/fonts";
+// import { customFonts } from "@/lib/fonts";
 import ZSelectDropdown from "@/components/inputs/ZSelectDropdown";
 import { IKonvaTemplateTextItem } from "@/utils/interfaceTemplate";
 
@@ -29,7 +29,10 @@ export default function EditorFontsSelector() {
   };
 
   const handleFontSelect = async (fontVariable: string) => {
-    const resolvedFontName = getResolvedName(fontVariable);
+
+    console.log("fontVariable:", fontVariable);
+
+    /*const resolvedFontName = getResolvedName(fontVariable);
     if (!resolvedFontName) return;
 
     const fontToLoad = `16px "${resolvedFontName}"`;
@@ -41,24 +44,36 @@ export default function EditorFontsSelector() {
       } catch (e) {
         console.warn("Font loading error:", e);
       }
-    }
+    }*/
 
     dispatch(EditorActions.updateItem({
       id: selectedItem.id,
-      changes: { fontFamily: resolvedFontName },
+      // changes: { fontFamily: resolvedFontName },
+      changes: { fontFamily: fontVariable },
       addToHistory: true
     }));
   };
 
-  const fontOptions = customFonts.map(f => ({
+  /*const fontOptions = customFonts.map(f => ({
     value: f.variable,
     label: f.name,
     style: { fontFamily: `var(${f.variable})` }
-  }));
+  }));*/
 
-  const currentVariable = customFonts.find(f =>
+  const fontOptions = [
+    { value: "Arial", label: "Arial", style: { fontFamily: "Arial" } },
+    { value: "Verdana", label: "Verdana", style: { fontFamily: "Verdana" } },
+    { value: "Cinzel Decorative", label: "Cinzel Decorative", style: { fontFamily: "Cinzel Decorative" } },
+    { value: "Gupter", label: "Gupter", style: { fontFamily: "Gupter" } },
+    { value: "Allan", label: "Allan", style: { fontFamily: "Allan" } },
+    { value: "Cairo", label: "Cairo", style: { fontFamily: "Cairo" } },
+    { value: "Amaranth", label: "Amaranth", style: { fontFamily: "Amaranth" } },
+  ];
+
+  /*const currentVariable = customFonts.find(f =>
     getResolvedName(f.variable) === selectedItem.fontFamily
-  )?.variable || "";
+  )?.variable || "";*/
+  const currentVariable = selectedItem.fontFamily;
 
   return (
     <div className="panel-section" ref={dropdownRef}>
