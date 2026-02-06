@@ -331,7 +331,7 @@ export default function KonvaStage({
             )}
 
             {
-              user !== null && user.user_metadata.role === "administrator" &&
+              /*user !== null && user.user_metadata.role === "administrator" &&
               templateDB !== null && templateDB.catalog_image !== "" &&
               <BackgroundCover
                 url={templateDB.catalog_image}
@@ -346,7 +346,7 @@ export default function KonvaStage({
                   // setSelectedId(null);
                   dispatch(EditorActions.setselectedKonvaItem(null));
                 }}
-              />
+              />*/
             }
 
 
